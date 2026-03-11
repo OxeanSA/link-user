@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asher-Link | User Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
+        body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
+        .glass { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: slideUp 0.3s ease-out; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .gradient-bg { background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%); }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 overflow-x-hidden">
+
+    <!-- Header -->
+    <header class="fixed top-0 w-full z-50 glass border-b border-slate-200">
+        <div class="max-w-md mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <div class="bg-blue-600 p-1.5 rounded-lg shadow-sm">
+                    <i class="fas fa-wifi text-white text-sm"></i>
+                </div>
+                <h1 class="font-extrabold text-lg tracking-tight uppercase italic text-blue-900">Asher-Link</h1>
+            </div>
+            <button onclick="switchTab('account')" class="w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 border border-slate-200">
+                <i class="fas fa-user-circle"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Notification Toast -->
+    <div id="notification" class="fixed top-20 left-4 right-4 z-[100] transform -translate-y-32 transition-transform duration-300 pointer-events-none">
+        <div id="notif-box" class="max-w-md mx-auto bg-slate-900 text-white p-4 rounded-2xl shadow-2xl flex items-center gap-3">
+            <i id="notif-icon" class="fas fa-info-circle text-blue-400"></i>
+            <p id="notif-msg" class="text-sm font-semibold"></p>
+        </div>
+    </div>
+
+    <main class="max-w-md mx-auto px-4 pt-20 pb-32">
+        
+        <!-- DASHBOARD TAB -->
+        <section id="dashboard" class="tab-content active">
+            <div class="gradient-bg rounded-[2rem] p-6 text-white shadow-xl shadow-blue-200/50 mb-6 relative overflow-hidden">
+                <div class="relative z-10">
+                    <p class="text-blue-100 text-xs font-bold uppercase tracking-widest mb-1 opacity-80">Available Balance</p>
+                    <h2 id="balance-display" class="text-4xl font-black mb-6">R 0.00</h2>
+                    
+                    <div class="bg-white/10 rounded-2xl p-4 flex items-center justify-between backdrop-blur-sm border border-white/10">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-yellow-400 flex items-center justify-center text-slate-900">
+                                <i class="fas fa-bolt"></i>
+                            </div>
+                            <div>
+                                <p class="text-[10px] text-blue-100 uppercase font-bold tracking-wider">Active Plan</p>
+                                <p id="active-plan" class="font-bold text-sm">Detecting Network...</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-[10px] text-blue-100 uppercase font-bold">Expiry</p>
+                            <p id="expiry-time" class="text-xs font-mono">--:--</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Decorative Circle -->
+                <div class="absolute -right-10 -top-10 w-40 h-40 bg-white/10 rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4 mb-8">
+                <div class="bg-white p-5 rounded-3xl shadow-sm border border-slate-100 text-center">
+                    <div class="w-10 h-10 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-2">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <p class="text-xs font-bold text-slate-400 uppercase tracking-tighter">Data Used</p>
+                    <p id="usage-stats" class="text-lg font-black text-slate-800">0 MB</p>
+                </div>
+                <div class="bg-white p-5 rounded-3xl shadow-sm border border-slate-100 text-center">
+                    <div class="w-10 h-10 bg-green-50 text-green-600 rounded-full flex items-center justify-center mx-auto mb-2">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <p class="text-xs font-bold text-slate-400 uppercase tracking-tighter">Signal</p>
+                    <p class="text-lg font-black text-slate-800">Secure</p>
+                </div>
+            </div>
+
+            <h3 class="text-lg font-extrabold text-slate-800 mb-4 flex items-center gap-2">
+                <i class="fas fa-star text-yellow-500 text-sm"></i> Recommended
+            </h3>
+            <div class="bg-white border border-slate-200 rounded-3xl p-5 flex items-center justify-between shadow-sm active:scale-[0.98] transition-transform cursor-pointer" onclick="switchTab('bundles')">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 gradient-bg rounded-2xl flex items-center justify-center text-white font-bold text-xs">30D</div>
+                    <div>
+                        <p class="font-bold text-slate-900">Uncapped Monthly</p>
+                        <p class="text-xs text-slate-500">Fastest for work & Netflix</p>
+                    </div>
+                </div>
+                <div class="text-right">
+                    <p class="font-black text-blue-600">R 150</p>
+                    <i class="fas fa-chevron-right text-[10px] text-slate-300"></i>
+                </div>
+            </div>
+        </section>
+
+        <!-- BUNDLES TAB -->
+        <section id="bundles" class="tab-content">
+            <h3 class="text-2xl font-black text-slate-900 mb-2">Buy Bundles</h3>
+            <p class="text-sm text-slate-500 mb-6">Switching a bundle will refresh your connection instantly.</p>
+            
+            <div id="bundle-list" class="space-y-4">
+                <!-- Bundles injected by JS -->
+            </div>
+
+            <button onclick="cancelBundle()" class="w-full mt-8 py-4 bg-red-50 text-red-600 rounded-2xl font-bold border border-red-100 hover:bg-red-100 transition-colors">
+                Cancel Active Bundle
+            </button>
+        </section>
+
+        <!-- HISTORY TAB -->
+        <section id="history" class="tab-content">
+            <h3 class="text-2xl font-black text-slate-900 mb-6">Usage History</h3>
+            <div id="history-list" class="space-y-1">
+                <!-- History items -->
+            </div>
+        </section>
+
+        <!-- DEVICES TAB -->
+        <section id="devices" class="tab-content">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-black text-slate-900">Devices</h3>
+                <button onclick="showNotification('Device discovery active...', 'info')" class="text-blue-600 font-bold text-sm bg-blue-50 px-3 py-1 rounded-full">
+                    + Link New
+                </button>
+            </div>
+            <div id="device-list" class="space-y-4">
+                <!-- Devices -->
+            </div>
+        </section>
+
+        <!-- ACCOUNT TAB -->
+        <section id="account" class="tab-content">
+            <div class="bg-white rounded-[2rem] p-8 border border-slate-100 shadow-sm text-center mb-6">
+                <div class="w-24 h-24 bg-slate-100 mx-auto rounded-3xl flex items-center justify-center text-slate-300 mb-6">
+                    <i class="fas fa-user-shield text-5xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-slate-900">Oxean Guest Account</h3>
+                <p id="mac-address-label" class="text-xs font-mono text-slate-400 mt-1 uppercase">Loading MAC...</p>
+                
+                <div class="mt-8 space-y-3">
+                    <button class="w-full py-4 gradient-bg text-white rounded-2xl font-bold shadow-lg shadow-blue-200">Create Full Oxean ID</button>
+                    <button class="w-full py-4 border border-slate-200 text-slate-600 rounded-2xl font-bold">Manage Billing</button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Navigation Bar -->
+    <nav class="fixed bottom-0 left-0 right-0 glass border-t border-slate-200 px-6 py-4 pb-8 z-50">
+        <div class="max-w-md mx-auto flex justify-between items-center">
+            <button onclick="switchTab('dashboard')" class="nav-btn text-blue-600 flex flex-col items-center gap-1" data-tab="dashboard">
+                <i class="fas fa-house-chimney text-xl"></i>
+                <span class="text-[10px] font-bold">Home</span>
+            </button>
+            <button onclick="switchTab('bundles')" class="nav-btn text-slate-400 flex flex-col items-center gap-1" data-tab="bundles">
+                <i class="fas fa-rotate text-xl"></i>
+                <span class="text-[10px] font-bold">Bundles</span>
+            </button>
+            <button onclick="switchTab('history')" class="nav-btn text-slate-400 flex flex-col items-center gap-1" data-tab="history">
+                <i class="fas fa-clock-rotate-left text-xl"></i>
+                <span class="text-[10px] font-bold">History</span>
+            </button>
+            <button onclick="switchTab('devices')" class="nav-btn text-slate-400 flex flex-col items-center gap-1" data-tab="devices">
+                <i class="fas fa-mobile-screen-button text-xl"></i>
+                <span class="text-[10px] font-bold">Devices</span>
+            </button>
+        </div>
+    </nav>
+
+    <script>
+        const API_BASE = "https://api.oxeansa.co.za";
+        const MOCK_MAC = "00:0A:95:9D:68:16"; // In prod, get this from URL params
+        
+        const BUNDLES = [
+            { id: 1, name: 'Daily Pass', price: 5, data: 'Uncapped', time: '24h' },
+            { id: 2, name: 'Weekend Warrior', price: 20, data: '15GB', time: '48h' },
+            { id: 3, name: 'Social Weekly', price: 45, data: 'Uncapped', time: '7 Days' },
+            { id: 4, name: 'Monthly Pro', price: 150, data: 'Uncapped', time: '30 Days' }
+        ];
+
+        // Init App
+        window.addEventListener('DOMContentLoaded', () => {
+            renderBundles();
+            renderHistory();
+            renderDevices();
+            fetchBalance(MOCK_MAC);
+            document.getElementById('mac-address-label').innerText = `MAC: ${MOCK_MAC}`;
+        });
+
+        // Tab Switcher Logic
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.replace('text-blue-600', 'text-slate-400');
+                if(btn.dataset.tab === tabId) btn.classList.replace('text-slate-400', 'text-blue-600');
+            });
+            window.scrollTo(0,0);
+        }
+
+        // API Fetching with Exponential Backoff
+        async function fetchBalance(mac, retries = 5, delay = 1000) {
+            try {
+                // Actual implementation would be:
+                // const response = await fetch(`${API_BASE}/balance?mac=${mac}`);
+                // if (!response.ok) throw new Error();
+                // const data = await response.json();
+                
+                // Simulating successful API response for demo
+                setTimeout(() => {
+                    updateDashboard({
+                        balance: 85.50,
+                        activePlan: "Monthly Pro",
+                        usage: 412,
+                        expiry: "14h : 22m"
+                    });
+                }, 800);
+
+            } catch (err) {
+                if (retries > 0) {
+                    setTimeout(() => fetchBalance(mac, retries - 1, delay * 2), delay);
+                } else {
+                    showNotification("Connectivity issue. Retrying...", "error");
+                }
+            }
+        }
+
+        function updateDashboard(data) {
+            document.getElementById('balance-display').innerText = `R ${data.balance.toFixed(2)}`;
+            document.getElementById('active-plan').innerText = data.activePlan;
+            document.getElementById('usage-stats').innerText = `${data.usage} MB`;
+            document.getElementById('expiry-time').innerText = data.expiry;
+        }
+
+        function renderBundles() {
+            const list = document.getElementById('bundle-list');
+            list.innerHTML = BUNDLES.map(b => `
+                <div class="bg-white border border-slate-200 p-5 rounded-3xl shadow-sm hover:border-blue-500 transition-all cursor-pointer group" onclick="buyBundle('${b.name}')">
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <span class="text-[9px] font-black uppercase tracking-widest bg-slate-100 text-slate-500 px-2 py-0.5 rounded-lg mb-2 inline-block">${b.time}</span>
+                            <h4 class="text-lg font-extrabold text-slate-900 leading-none">${b.name}</h4>
+                            <p class="text-xs text-slate-400 mt-1">${b.data} Data Access</p>
+                        </div>
+                        <p class="text-xl font-black text-blue-600">R ${b.price}</p>
+                    </div>
+                    <button class="w-full py-3 bg-slate-900 text-white rounded-2xl font-bold text-sm group-hover:bg-blue-600 transition-colors">
+                        Activate Now
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function renderHistory() {
+            const data = [
+                { title: 'Monthly Pro Purchase', date: 'Yesterday', amount: '-R150.00', icon: 'fa-bolt' },
+                { title: 'Cash Deposit (Voucher)', date: 'Oct 24', amount: '+R200.00', icon: 'fa-wallet' },
+                { title: 'Daily Pass Expired', date: 'Oct 22', amount: 'R0.00', icon: 'fa-clock' }
+            ];
+            document.getElementById('history-list').innerHTML = data.map(i => `
+                <div class="flex items-center justify-between p-4 bg-white mb-2 rounded-2xl border border-slate-100">
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 text-sm">
+                            <i class="fas ${i.icon}"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm font-bold text-slate-800">${i.title}</p>
+                            <p class="text-[10px] text-slate-400 uppercase font-medium tracking-tighter">${i.date}</p>
+                        </div>
+                    </div>
+                    <p class="text-sm font-mono font-bold ${i.amount.includes('+') ? 'text-green-600' : 'text-slate-900'}">${i.amount}</p>
+                </div>
+            `).join('');
+        }
+
+        function renderDevices() {
+            const devices = [
+                { name: 'Samsung Galaxy A23', mac: '00:0A:95:9D:68:16', active: true },
+                { name: 'Home PC', mac: 'BC:D1:C3:8A:44:01', active: false }
+            ];
+            document.getElementById('device-list').innerHTML = devices.map(d => `
+                <div class="p-4 rounded-3xl border ${d.active ? 'bg-blue-50 border-blue-100' : 'bg-white border-slate-100'} flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-2xl ${d.active ? 'bg-blue-600 text-white' : 'bg-slate-100 text-slate-400'} flex items-center justify-center">
+                            <i class="fas fa-mobile-screen"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm font-bold">${d.name}</p>
+                            <p class="text-[9px] font-mono text-slate-400">${d.mac}</p>
+                        </div>
+                    </div>
+                    <span class="text-[9px] font-bold px-2 py-0.5 rounded-full ${d.active ? 'bg-blue-200 text-blue-800' : 'bg-slate-200 text-slate-600'}">
+                        ${d.active ? 'CONNECTED' : 'OFFLINE'}
+                    </span>
+                </div>
+            `).join('');
+        }
+
+        function buyBundle(name) {
+            showNotification(`Switching to ${name}...`, 'info');
+            setTimeout(() => {
+                showNotification(`Success! ${name} is now active.`, 'success');
+                switchTab('dashboard');
+            }, 1500);
+        }
+
+        function cancelBundle() {
+            if(confirm("Are you sure? This will disconnect your internet immediately.")) {
+                showNotification("Bundle cancelled.", "info");
+                switchTab('dashboard');
+            }
+        }
+
+        function showNotification(msg, type) {
+            const box = document.getElementById('notification');
+            const inner = document.getElementById('notif-box');
+            const icon = document.getElementById('notif-icon');
+            
+            document.getElementById('notif-msg').innerText = msg;
+            
+            inner.className = `max-w-md mx-auto p-4 rounded-2xl shadow-2xl flex items-center gap-3 ${
+                type === 'error' ? 'bg-red-600 text-white' : 'bg-slate-900 text-white'
+            }`;
+            
+            icon.className = `fas ${type === 'error' ? 'fa-triangle-exclamation text-white' : 'fa-circle-check text-blue-400'}`;
+            
+            box.classList.remove('-translate-y-32');
+            setTimeout(() => box.classList.add('-translate-y-32'), 3000);
+        }
+    </script>
+</body>
+</html>
