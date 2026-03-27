@@ -9,7 +9,7 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
         body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
-        .glass { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); }
+        .glass { background: linear-gradient(to top, #152331, #000000); backdrop-filter: blur(10px); }
         .tab-content { display: none; }
         .tab-content.active { display: block; animation: slideUp 0.3s ease-out; }
         @keyframes slideUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
@@ -50,7 +50,7 @@
                     <p class="text-blue-100 text-xs font-bold uppercase tracking-widest mb-1 opacity-80">Available Balance</p>
                     <h2 id="balance-display" class="text-4xl font-black mb-6">R 0.00</h2>
                     
-                    <div class="bg-white/10 rounded-2xl p-4 flex items-center justify-between backdrop-blur-sm border border-white/10">
+                    <div class="bg-black/10 rounded-2xl p-4 flex items-center justify-between backdrop-blur-sm border border-black/10">
                         <div class="flex items-center gap-3">
                             <div class="w-10 h-10 rounded-xl bg-yellow-400 flex items-center justify-center text-slate-900">
                                 <i class="fas fa-bolt"></i>
@@ -67,18 +67,18 @@
                     </div>
                 </div>
                 <!-- Decorative Circle -->
-                <div class="absolute -right-10 -top-10 w-40 h-40 bg-white/10 rounded-full"></div>
+                <div class="absolute -right-10 -top-10 w-40 h-40 bg-black/10 rounded-full"></div>
             </div>
 
             <div class="grid grid-cols-2 gap-4 mb-8">
-                <div class="bg-white p-5 rounded-3xl shadow-sm border border-slate-100 text-center">
+                <div class="bg-black p-5 rounded-3xl shadow-sm border border-slate-100 text-center">
                     <div class="w-10 h-10 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-2">
                         <i class="fas fa-chart-line"></i>
                     </div>
                     <p class="text-xs font-bold text-slate-400 uppercase tracking-tighter">Data Used</p>
                     <p id="usage-stats" class="text-lg font-black text-slate-800">0 MB</p>
                 </div>
-                <div class="bg-white p-5 rounded-3xl shadow-sm border border-slate-100 text-center">
+                <div class="bg-black p-5 rounded-3xl shadow-sm border border-slate-100 text-center">
                     <div class="w-10 h-10 bg-green-50 text-green-600 rounded-full flex items-center justify-center mx-auto mb-2">
                         <i class="fas fa-shield-alt"></i>
                     </div>
@@ -90,7 +90,7 @@
             <h3 class="text-lg font-extrabold text-slate-800 mb-4 flex items-center gap-2">
                 <i class="fas fa-star text-yellow-500 text-sm"></i> Recommended
             </h3>
-            <div class="bg-white border border-slate-200 rounded-3xl p-5 flex items-center justify-between shadow-sm active:scale-[0.98] transition-transform cursor-pointer" onclick="switchTab('bundles')">
+            <div class="bg-black border border-slate-200 rounded-3xl p-5 flex items-center justify-between shadow-sm active:scale-[0.98] transition-transform cursor-pointer" onclick="switchTab('bundles')">
                 <div class="flex items-center gap-4">
                     <div class="w-12 h-12 gradient-bg rounded-2xl flex items-center justify-center text-white font-bold text-xs">30D</div>
                     <div>
@@ -142,7 +142,7 @@
 
         <!-- ACCOUNT TAB -->
         <section id="account" class="tab-content">
-            <div class="bg-white rounded-[2rem] p-8 border border-slate-100 shadow-sm text-center mb-6">
+            <div class="bg-black rounded-[2rem] p-8 border border-slate-100 shadow-sm text-center mb-6">
                 <div class="w-24 h-24 bg-slate-100 mx-auto rounded-3xl flex items-center justify-center text-slate-300 mb-6">
                     <i class="fas fa-user-shield text-5xl"></i>
                 </div>
@@ -249,7 +249,7 @@
         function renderBundles() {
             const list = document.getElementById('bundle-list');
             list.innerHTML = BUNDLES.map(b => `
-                <div class="bg-white border border-slate-200 p-5 rounded-3xl shadow-sm hover:border-blue-500 transition-all cursor-pointer group" onclick="buyBundle('${b.name}')">
+                <div class="bg-black border border-slate-200 p-5 rounded-3xl shadow-sm hover:border-blue-500 transition-all cursor-pointer group" onclick="buyBundle('${b.name}')">
                     <div class="flex justify-between items-start mb-4">
                         <div>
                             <span class="text-[9px] font-black uppercase tracking-widest bg-slate-100 text-slate-500 px-2 py-0.5 rounded-lg mb-2 inline-block">${b.time}</span>
@@ -272,7 +272,7 @@
                 { title: 'Daily Pass Expired', date: 'Oct 22', amount: 'R0.00', icon: 'fa-clock' }
             ];
             document.getElementById('history-list').innerHTML = data.map(i => `
-                <div class="flex items-center justify-between p-4 bg-white mb-2 rounded-2xl border border-slate-100">
+                <div class="flex items-center justify-between p-4 bg-black mb-2 rounded-2xl border border-slate-100">
                     <div class="flex items-center gap-4">
                         <div class="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 text-sm">
                             <i class="fas ${i.icon}"></i>
@@ -293,7 +293,7 @@
                 { name: 'Home PC', mac: 'BC:D1:C3:8A:44:01', active: false }
             ];
             document.getElementById('device-list').innerHTML = devices.map(d => `
-                <div class="p-4 rounded-3xl border ${d.active ? 'bg-blue-50 border-blue-100' : 'bg-white border-slate-100'} flex items-center justify-between">
+                <div class="p-4 rounded-3xl border ${d.active ? 'bg-blue-50 border-blue-100' : 'bg-black border-slate-100'} flex items-center justify-between">
                     <div class="flex items-center gap-3">
                         <div class="w-10 h-10 rounded-2xl ${d.active ? 'bg-blue-600 text-white' : 'bg-slate-100 text-slate-400'} flex items-center justify-center">
                             <i class="fas fa-mobile-screen"></i>
